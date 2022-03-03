@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>X-COLA</title>
+    <script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system/dist/aframe-physics-system.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@3.0.3/dist/aframe-event-set-component.min.js"></script>
+
+    <script src="components/cola.js"></script>
+    <script src="components/win.js"></script>
+</head>
+<body>
+
+    <a-scene>
+        <a-assets>
+            <a-asset-item id="xcola" src="models/Xcola.gltf"></a-asset-item>
+            <a-asset-item id="characterModel" src="models/Character.gltf"></a-asset-item>
+            <img id="skyImg" src="images/aviation_museum_hill_1k.png"></img>
+        </a-assets>
+
+        <a-box dynamic-body position="0 3 -3" rotation="0 45 0" color="#4CC3D9"  event-set__enter="_event: mouseenter; color: #8FF7FF"
+        event-set__leave="_event: mouseleave; color: #4CC3D9"></a-box>
+        <a-box dynamic-body position="0 3 -1" rotation="0 45 0" color="#4CC3D9"  event-set__down="_event: mousedown; material.wireframe: true"
+        event-set__up="_event: mouseup; material.wireframe: false"
+        event-set__leave="_event: mouseleave; material.wireframe: false"></a-box>
+        <a-box dynamic-body position="0 3 -2" rotation="0 45 0" color="#4CC3D9" cola></a-box>
+        <a-plane static-body position="0 0 0" color="white" rotation="-90 0 0" scale="10 10 10"></a-plane>
+        <a-sky src="#skyImg"></a-sky>
+
+        <a-entity gltf-model="#xcola" scale="0.5 0.5 0.5" cola position="0 0 -4"></a-entity>
+        
+        <a-entity id="char" animation-mixer="clip:idle" gltf-model="#characterModel" scale="0.5 0.5 0.5" position="0 0 -5" rotation="0 -90 0"></a-entity>
+
+        <!-- <a-sphere position="0 2 -4" color="#FF0000" cola="takeDistance:2;player:#player"></a-sphere> -->
+
+        <!-- Player -->
+        <a-camera id="player" position="0 1.8 0">
+            <a-box static-body color="#FFFFFF" position="0 0 0" scale="2 2 2" ></a-box>
+            <a-text id="winText" value="Win" align="center" position="0 0 -1" scale ="2 2 2" color="#5555FF" visible="false" win></a-text>
+            <a-cursor></a-cursor>
+            <a-entity hand-controls="left"></a-entity>
+            <a-entity hand-controls="right"></a-entity>
+        </a-camera>
+
+    </a-scene>
+
+
+    
+</body>
+</html>
